@@ -1,14 +1,3 @@
-# Laboratório 01 — Banco de Dados: Sistema para Locadora de Veículos
+ # Banco de Dados — IDP
 
-## Integrantes
-
-| Nome | Matrícula |
-|------|-----------|
-| Arthur Choi Braga | 24101345 |
-| Pedro Emanuel da Costa Madruga | 25201037 |
-
-## Arquivos da entrega
-
--  [`Laboratorio_01_Banco_de_Dados.pdf`](Laboratorio_01_Banco_de_Dados.pdf) 
--  [`locadora.sql`](locadora.sql) 
-
+Este repositório contém os arquivos e atividades da dupla **24101345** e **25201037** para a disciplina de **Banco de Dados** do **IDP**.
