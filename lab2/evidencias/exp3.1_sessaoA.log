@@ -1,0 +1,24 @@
+--------------
+BEGIN
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT * FROM Veiculo WHERE id = 1 FOR UPDATE
+--------------
+
++----+---------+---------+--------------+------------+
+| id | placa   | modelo  | id_categoria | status     |
++----+---------+---------+--------------+------------+
+|  1 | ABC1234 | Compass |            1 | disponivel |
++----+---------+---------+--------------+------------+
+1 row in set (0.01 sec)
+
+--------------
+COMMIT
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+Bye

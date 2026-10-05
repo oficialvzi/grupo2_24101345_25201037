@@ -1,0 +1,92 @@
+--------------
+SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+BEGIN
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT '1a LEITURA (A ainda nao commitou)' AS etapa, nome FROM Cliente WHERE id = 1
+--------------
+
++-----------------------------------+-------+
+| etapa                             | nome  |
++-----------------------------------+-------+
+| 1a LEITURA (A ainda nao commitou) | João  |
++-----------------------------------+-------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT '2a LEITURA (apos commit de A)' AS etapa, nome FROM Cliente WHERE id = 1
+--------------
+
++-------------------------------+----------------+
+| etapa                         | nome           |
++-------------------------------+----------------+
+| 2a LEITURA (apos commit de A) | ALTERADO POR A |
++-------------------------------+----------------+
+1 row in set (0.00 sec)
+
+--------------
+COMMIT
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SET SESSION TRANSACTION ISOLATION LEVEL REPEATABLE READ
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+BEGIN
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT '1a LEITURA - cria o snapshot' AS etapa, nome FROM Cliente WHERE id = 1
+--------------
+
++------------------------------+----------------+
+| etapa                        | nome           |
++------------------------------+----------------+
+| 1a LEITURA - cria o snapshot | ALTERADO POR A |
++------------------------------+----------------+
+1 row in set (0.00 sec)
+
+--------------
+SELECT '2a LEITURA - apos commit de A' AS etapa, nome FROM Cliente WHERE id = 1
+--------------
+
++-------------------------------+----------------+
+| etapa                         | nome           |
++-------------------------------+----------------+
+| 2a LEITURA - apos commit de A | ALTERADO POR A |
++-------------------------------+----------------+
+1 row in set (0.00 sec)
+
+--------------
+COMMIT
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SELECT '3a LEITURA - fora da transacao' AS etapa, nome FROM Cliente WHERE id = 1
+--------------
+
++--------------------------------+-----------------+
+| etapa                          | nome            |
++--------------------------------+-----------------+
+| 3a LEITURA - fora da transacao | COMMITADO POR A |
++--------------------------------+-----------------+
+1 row in set (0.00 sec)
+
+Bye

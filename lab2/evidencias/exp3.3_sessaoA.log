@@ -1,0 +1,46 @@
+--------------
+BEGIN
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+UPDATE Cliente SET nome = 'ALTERADO POR A' WHERE id = 1
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+COMMIT
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+BEGIN
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+UPDATE Cliente SET nome = 'COMMITADO POR A' WHERE id = 1
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+COMMIT
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+UPDATE Cliente SET nome = 'João' WHERE id = 1
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+Bye

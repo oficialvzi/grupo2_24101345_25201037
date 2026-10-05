@@ -1,0 +1,25 @@
+--------------
+BEGIN
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+UPDATE Veiculo SET modelo = 'Teste B' WHERE id = 1
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE Cliente SET nome = 'Teste B' WHERE id = 1
+--------------
+
+ERROR 1213 (40001) at line 3: Deadlock found when trying to get lock; try restarting transaction
+--------------
+ROLLBACK
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+Bye

@@ -1,0 +1,27 @@
+--------------
+BEGIN
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+UPDATE Cliente SET nome = 'Teste A' WHERE id = 1
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE Veiculo SET modelo = 'Teste A' WHERE id = 1
+--------------
+
+Query OK, 1 row affected (3.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+ROLLBACK
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+Bye

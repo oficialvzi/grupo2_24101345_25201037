@@ -1,0 +1,62 @@
+LATEST DETECTED DEADLOCK
+------------------------
+2026-09-28 13:38:20 0x16fbc3000
+*** (1) TRANSACTION:
+TRANSACTION 1666, ACTIVE 8 sec starting index read
+mysql tables in use 1, locked 1
+LOCK WAIT 4 lock struct(s), heap size 1128, 2 row lock(s), undo log entries 1
+MySQL thread id 19, OS thread handle 6183038976, query id 226 localhost root updating
+UPDATE Veiculo SET modelo = 'Teste A' WHERE id = 1
+
+*** (1) HOLDS THE LOCK(S):
+RECORD LOCKS space id 12 page no 4 n bits 72 index PRIMARY of table `laboratorio1`.`cliente` trx id 1666 lock_mode X locks rec but not gap
+Record lock, heap no 2 PHYSICAL RECORD: n_fields 5; compact format; info bits 0
+ 0: len 4; hex 80000001; asc     ;;
+ 1: len 6; hex 000000000682; asc       ;;
+ 2: len 7; hex 010000010c0348; asc       H;;
+ 3: len 7; hex 54657374652041; asc Teste A;;
+ 4: len 14; hex 3131312e3232322e3333332d3434; asc 111.222.333-44;;
+
+
+*** (1) WAITING FOR THIS LOCK TO BE GRANTED:
+RECORD LOCKS space id 19 page no 4 n bits 72 index PRIMARY of table `laboratorio1`.`veiculo` trx id 1666 lock_mode X locks rec but not gap waiting
+Record lock, heap no 2 PHYSICAL RECORD: n_fields 7; compact format; info bits 0
+ 0: len 4; hex 80000001; asc     ;;
+ 1: len 6; hex 000000000683; asc       ;;
+ 2: len 7; hex 02000001450151; asc     E Q;;
+ 3: len 7; hex 41424331323334; asc ABC1234;;
+ 4: len 7; hex 54657374652042; asc Teste B;;
+ 5: len 4; hex 80000001; asc     ;;
+ 6: len 10; hex 646973706f6e6976656c; asc disponivel;;
+
+
+*** (2) TRANSACTION:
+TRANSACTION 1667, ACTIVE 5 sec starting index read
+mysql tables in use 1, locked 1
+LOCK WAIT 4 lock struct(s), heap size 1128, 2 row lock(s), undo log entries 1
+MySQL thread id 20, OS thread handle 6185267200, query id 227 localhost root updating
+UPDATE Cliente SET nome = 'Teste B' WHERE id = 1
+
+*** (2) HOLDS THE LOCK(S):
+RECORD LOCKS space id 19 page no 4 n bits 72 index PRIMARY of table `laboratorio1`.`veiculo` trx id 1667 lock_mode X locks rec but not gap
+Record lock, heap no 2 PHYSICAL RECORD: n_fields 7; compact format; info bits 0
+ 0: len 4; hex 80000001; asc     ;;
+ 1: len 6; hex 000000000683; asc       ;;
+ 2: len 7; hex 02000001450151; asc     E Q;;
+ 3: len 7; hex 41424331323334; asc ABC1234;;
+ 4: len 7; hex 54657374652042; asc Teste B;;
+ 5: len 4; hex 80000001; asc     ;;
+ 6: len 10; hex 646973706f6e6976656c; asc disponivel;;
+
+
+*** (2) WAITING FOR THIS LOCK TO BE GRANTED:
+RECORD LOCKS space id 12 page no 4 n bits 72 index PRIMARY of table `laboratorio1`.`cliente` trx id 1667 lock_mode X locks rec but not gap waiting
+Record lock, heap no 2 PHYSICAL RECORD: n_fields 5; compact format; info bits 0
+ 0: len 4; hex 80000001; asc     ;;
+ 1: len 6; hex 000000000682; asc       ;;
+ 2: len 7; hex 010000010c0348; asc       H;;
+ 3: len 7; hex 54657374652041; asc Teste A;;
+ 4: len 14; hex 3131312e3232322e3333332d3434; asc 111.222.333-44;;
+
+*** WE ROLL BACK TRANSACTION (2)
+------------
