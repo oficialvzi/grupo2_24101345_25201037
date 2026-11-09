@@ -1,0 +1,14 @@
+$ mysql -u root locadora < locadora/database/02_etapa3_soft_delete.sql
+OK
+
+$ mysql -u root -t -e "DESCRIBE locadora.Veiculo"
++--------------+-------------+------+-----+------------+----------------+
+| Field        | Type        | Null | Key | Default    | Extra          |
++--------------+-------------+------+-----+------------+----------------+
+| id           | int         | NO   | PRI | NULL       | auto_increment |
+| placa        | varchar(10) | NO   | UNI | NULL       |                |
+| modelo       | varchar(50) | NO   |     | NULL       |                |
+| id_categoria | int         | NO   | MUL | NULL       |                |
+| status       | varchar(20) | NO   |     | disponivel |                |
+| deleted_at   | datetime    | YES  |     | NULL       |                |
++--------------+-------------+------+-----+------------+----------------+

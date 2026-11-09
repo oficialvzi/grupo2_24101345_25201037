@@ -1,0 +1,8 @@
+# A aplicação conecta com o usuário limitado, não com root
+$ grep DB_ locadora/config/config.php
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'locadora');
+define('DB_USER', 'app_locadora');
+
+$ php -r 'require "locadora/config/database.php"; echo getConnection()->query("SELECT CURRENT_USER()")->fetchColumn();'
+app_locadora@localhost

@@ -1,0 +1,28 @@
+$ mysql -u root -e "SHOW GRANTS FOR ..."
+GRANT USAGE ON *.* TO `app_locadora`@`localhost`
+GRANT SELECT, INSERT, UPDATE ON `locadora`.* TO `app_locadora`@`localhost`
+GRANT USAGE ON *.* TO `admin_locadora`@`localhost`
+GRANT ALL PRIVILEGES ON `locadora`.* TO `admin_locadora`@`localhost`
+
+# Preparação (admin_locadora cria uma tabela descartável para os testes)
+  admin_locadora  CREATE TABLE teste_privilegio                    PERMITIDO
+
+# app_locadora (SELECT, INSERT, UPDATE)
+  app_locadora    SELECT * FROM Veiculo                            PERMITIDO
+  app_locadora    INSERT INTO teste_privilegio                     PERMITIDO
+  app_locadora    UPDATE teste_privilegio                          PERMITIDO
+  app_locadora    DELETE FROM teste_privilegio                     NEGADO   -> ERROR 1142 (42000) at line 1: DELETE command denied to user 'app_locadora'@'localhost' for table 'teste_privilegio'
+  app_locadora    DELETE FROM Cliente WHERE id=5                   NEGADO   -> ERROR 1142 (42000) at line 1: DELETE command denied to user 'app_locadora'@'localhost' for table 'cliente'
+  app_locadora    DROP TABLE teste_privilegio                      NEGADO   -> ERROR 1142 (42000) at line 1: DROP command denied to user 'app_locadora'@'localhost' for table 'teste_privilegio'
+  app_locadora    CREATE TABLE outra                               NEGADO   -> ERROR 1142 (42000) at line 1: CREATE command denied to user 'app_locadora'@'localhost' for table 'outra'
+  app_locadora    ALTER TABLE Veiculo                              NEGADO   -> ERROR 1142 (42000) at line 1: ALTER command denied to user 'app_locadora'@'localhost' for table 'veiculo'
+  app_locadora    SELECT em outro banco (mysql.user)               NEGADO   -> ERROR 1142 (42000) at line 1: SELECT command denied to user 'app_locadora'@'localhost' for table 'user'
+  app_locadora    GRANT SELECT ON locadora.*                       NEGADO   -> ERROR 1044 (42000) at line 1: Access denied for user 'app_locadora'@'localhost' to database 'locadora'
+
+# admin_locadora (ALL PRIVILEGES em locadora.*)
+  admin_locadora  SELECT * FROM Veiculo                            PERMITIDO
+  admin_locadora  UPDATE teste_privilegio                          PERMITIDO
+  admin_locadora  DELETE FROM teste_privilegio                     PERMITIDO
+  admin_locadora  ALTER TABLE teste_privilegio                     PERMITIDO
+  admin_locadora  DROP TABLE teste_privilegio                      PERMITIDO
+  admin_locadora  SELECT em outro banco (mysql.user)               NEGADO   -> ERROR 1142 (42000) at line 1: SELECT command denied to user 'admin_locadora'@'localhost' for table 'user'

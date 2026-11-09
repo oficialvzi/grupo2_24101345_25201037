@@ -1,0 +1,23 @@
+-- Carro PQR3S45 excluído pela aplicação: continua no banco com deleted_at preenchido
+mysql> SELECT id, placa, modelo, status, deleted_at FROM Veiculo ORDER BY id;
++----+---------+-----------+------------+---------------------+
+| id | placa   | modelo    | status     | deleted_at          |
++----+---------+-----------+------------+---------------------+
+|  1 | ABC1234 | Compass   | locado     | NULL                |
+|  2 | XYZ9876 | Argo      | disponivel | NULL                |
+|  3 | BRA2E19 | Argo      | disponivel | NULL                |
+|  4 | QWE4R56 | Argo      | disponivel | NULL                |
+|  5 | RTY7U89 | Argo      | disponivel | NULL                |
+|  6 | PQR3S45 | Onix Plus | disponivel | 2026-11-04 10:43:14 |
++----+---------+-----------+------------+---------------------+
+
+-- A view do Bimestre I também passou a ignorar carros excluídos
+mysql> SELECT id_veiculo, modelo, placa FROM vw_veiculos_disponiveis;
++------------+--------+---------+
+| id_veiculo | modelo | placa   |
++------------+--------+---------+
+|          2 | Argo   | XYZ9876 |
+|          3 | Argo   | BRA2E19 |
+|          4 | Argo   | QWE4R56 |
+|          5 | Argo   | RTY7U89 |
++------------+--------+---------+

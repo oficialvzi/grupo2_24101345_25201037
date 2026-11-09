@@ -1,0 +1,17 @@
+# Auditoria: nenhuma consulta usa query()/exec() nem concatena variáveis no SQL
+$ grep -rnE "->(query|exec)\(" locadora/models locadora/controllers
+(nenhuma ocorrência)
+
+$ grep -rnE "(SELECT|INSERT|UPDATE|DELETE)[^;]*\" *\. *\$" locadora/models locadora/controllers
+(nenhuma ocorrência)
+
+$ grep -rn "prepare(" locadora/models | wc -l
+12
+
+$ grep -rnE "(SELECT|INSERT|UPDATE|DELETE) " locadora/views
+(nenhuma ocorrência — não há SQL nas views)
+
+# Saídas nas views: todo <?= ... ?> passa por e() (htmlspecialchars) ou por csrf_field(), que já escapa
+$ grep -rn '<?=' locadora/views | grep -vE '<\?= (e\(|csrf_field\(\)|count\()' | grep -v "'selected' : ''"
+(nenhuma saída sem escape)
+(count() devolve inteiro e o ternário só imprime a palavra fixa 'selected' — nada vindo do usuário)

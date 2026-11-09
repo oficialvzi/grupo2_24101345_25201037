@@ -1,0 +1,28 @@
+# XSS: HTML que o servidor devolve para a listagem (curl, sem navegador)
+$ curl -s localhost:8000/carros | grep XSS0A01 -A1
+            <td><code>XSS0A01</code></td>
+            <td>&lt;script&gt;alert(1)&lt;/script&gt;</td>
+
+$ curl -s "localhost:8000/carros?busca=<img src=x onerror=alert(2)>" | grep "Resultado para"
+    <p class="info">Resultado para <strong>&lt;img src=x onerror=alert(2)&gt;</strong>: 0 carro(s).</p>
+
+
+# CSRF: POST de exclusão sem o token da sessão é recusado
+$ curl -s -i -X POST -d "id=2" localhost:8000/carros/excluir
+HTTP/1.1 419 Unknown Status Code
+Requisição inválida (token CSRF ausente ou incorreto).
+  -> carro 2 continua ativo: deleted_at = NULL
+
+# Arquivos fora de public/ não são acessíveis
+/config/config.php           -> HTTP 404
+/../config/config.php        -> HTTP 404
+/models/CarroModel.php       -> HTTP 404
+/logs/                       -> HTTP 404
+# Cabeçalhos de segurança enviados pela aplicação
+$ curl -sI localhost:8000/carros
+HTTP/1.1 200 OK
+Set-Cookie: PHPSESSID=536da2616763e7120dd03ddcfa262300; path=/; HttpOnly; SameSite=Lax
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'
+(X-Powered-By removido: a versão do PHP não é divulgada; cookie de sessão HttpOnly + SameSite=Lax)

@@ -1,0 +1,13 @@
+# Backup final para a entrega
+$ mysqldump -u root --default-character-set=utf8mb4 --routines --triggers --databases locadora > locadora/backup/backup_locadora.sql
+OK
+$ ls -lh locadora/backup/backup_locadora.sql
+22K locadora/backup/backup_locadora.sql
+  tabelas: 7 · triggers: 3 · rotinas: 2
+  CREATE TABLE `Categoria`
+  CREATE TABLE `Cliente`
+  CREATE TABLE `Filial`
+  CREATE TABLE `Locacao`
+  CREATE TABLE `log_locacao`
+  CREATE TABLE `usuarios`
+  CREATE TABLE `Veiculo`

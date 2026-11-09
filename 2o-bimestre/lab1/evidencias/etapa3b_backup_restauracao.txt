@@ -1,0 +1,64 @@
+# Etapa 3 - Parte B: backup e restauração
+
+$ mysql -u root --default-character-set=utf8mb4 locadora -e "DROP TABLE IF EXISTS teste_restore; CREATE TABLE teste_restore (id INT PRIMARY KEY AUTO_INCREMENT, descricao VARCHAR(100), criado_em DATETIME DEFAULT CURRENT_TIMESTAMP); INSERT INTO teste_restore (descricao) VALUES ('registro 1 antes do backup'), ('registro 2 antes do backup');" && echo OK
+OK
+
+$ mysql -u root --default-character-set=utf8mb4 -t locadora -e 'SELECT * FROM teste_restore;'
++----+----------------------------+---------------------+
+| id | descricao                  | criado_em           |
++----+----------------------------+---------------------+
+|  1 | registro 1 antes do backup | 2026-11-04 10:43:46 |
+|  2 | registro 2 antes do backup | 2026-11-04 10:43:46 |
++----+----------------------------+---------------------+
+
+$ mysqldump -u root --default-character-set=utf8mb4 --routines --triggers --databases locadora > locadora/backup/backup_locadora.sql && echo OK
+OK
+
+$ ls -lh locadora/backup/backup_locadora.sql | awk '{print $5, $9}'
+21K locadora/backup/backup_locadora.sql
+  tabelas no backup:  7
+  triggers no backup: 3
+  rotinas no backup:  2
+
+# Simulando a perda de dados
+
+$ mysql -u root --default-character-set=utf8mb4 locadora -e 'DROP TABLE teste_restore;' && echo OK
+OK
+
+$ mysql -u root --default-character-set=utf8mb4 -t locadora -e 'SELECT * FROM teste_restore;' 2>&1
+ERROR 1146 (42S02) at line 1: Table 'locadora.teste_restore' doesn't exist
+
+# Restaurando a partir do backup
+
+$ mysql -u root --default-character-set=utf8mb4 < locadora/backup/backup_locadora.sql && echo OK
+OK
+
+$ mysql -u root --default-character-set=utf8mb4 -t locadora -e 'SELECT * FROM teste_restore;'
++----+----------------------------+---------------------+
+| id | descricao                  | criado_em           |
++----+----------------------------+---------------------+
+|  1 | registro 1 antes do backup | 2026-11-04 10:43:46 |
+|  2 | registro 2 antes do backup | 2026-11-04 10:43:46 |
++----+----------------------------+---------------------+
+
+$ mysql -u root --default-character-set=utf8mb4 -t locadora -e 'SELECT id, placa, modelo, deleted_at FROM Veiculo;'
++----+---------+---------------------------+---------------------+
+| id | placa   | modelo                    | deleted_at          |
++----+---------+---------------------------+---------------------+
+|  1 | ABC1234 | Compass                   | NULL                |
+|  2 | XYZ9876 | Argo                      | NULL                |
+|  3 | BRA2E19 | Argo                      | NULL                |
+|  4 | QWE4R56 | Argo                      | NULL                |
+|  5 | RTY7U89 | Argo                      | NULL                |
+|  6 | PQR3S45 | Onix Plus                 | 2026-11-04 10:43:14 |
+|  8 | XSS0A01 | <script>alert(1)</script> | NULL                |
++----+---------+---------------------------+---------------------+
+
+$ mysql -u root --default-character-set=utf8mb4 -t locadora -e "SELECT TRIGGER_NAME, EVENT_MANIPULATION, ACTION_TIMING FROM information_schema.TRIGGERS WHERE TRIGGER_SCHEMA='locadora';"
++-----------------------+--------------------+---------------+
+| TRIGGER_NAME          | EVENT_MANIPULATION | ACTION_TIMING |
++-----------------------+--------------------+---------------+
+| trg_locacao_insert    | INSERT             | AFTER         |
+| trg_locacao_update    | UPDATE             | AFTER         |
+| trg_auditoria_locacao | UPDATE             | AFTER         |
++-----------------------+--------------------+---------------+

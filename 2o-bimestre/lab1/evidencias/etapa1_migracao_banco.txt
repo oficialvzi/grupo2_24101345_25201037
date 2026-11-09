@@ -1,0 +1,34 @@
+$ mysql -u root --default-character-set=utf8mb4 < locadora_final.sql   # banco do Bimestre I
+OK
+
+$ mysql -u root -t -e "DESCRIBE locadora.Veiculo"   # ANTES
++--------------+-------------+------+-----+------------+-------+
+| Field        | Type        | Null | Key | Default    | Extra |
++--------------+-------------+------+-----+------------+-------+
+| id           | int         | NO   | PRI | NULL       |       |
+| placa        | varchar(10) | NO   | UNI | NULL       |       |
+| modelo       | varchar(50) | NO   |     | NULL       |       |
+| id_categoria | int         | NO   | MUL | NULL       |       |
+| status       | varchar(20) | NO   |     | disponivel |       |
++--------------+-------------+------+-----+------------+-------+
+
+$ mysql -u root locadora < locadora/database/01_etapa1_ajustes.sql
+OK
+
+$ mysql -u root -t -e "DESCRIBE locadora.Veiculo; DESCRIBE locadora.Cliente"   # DEPOIS (id AUTO_INCREMENT)
++--------------+-------------+------+-----+------------+----------------+
+| Field        | Type        | Null | Key | Default    | Extra          |
++--------------+-------------+------+-----+------------+----------------+
+| id           | int         | NO   | PRI | NULL       | auto_increment |
+| placa        | varchar(10) | NO   | UNI | NULL       |                |
+| modelo       | varchar(50) | NO   |     | NULL       |                |
+| id_categoria | int         | NO   | MUL | NULL       |                |
+| status       | varchar(20) | NO   |     | disponivel |                |
++--------------+-------------+------+-----+------------+----------------+
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int          | NO   | PRI | NULL    | auto_increment |
+| nome  | varchar(100) | NO   |     | NULL    |                |
+| cpf   | varchar(14)  | NO   | UNI | NULL    |                |
++-------+--------------+------+-----+---------+----------------+

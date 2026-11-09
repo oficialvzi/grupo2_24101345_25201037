@@ -1,0 +1,9 @@
+# Senhas armazenadas com password_hash (bcrypt), nunca em texto puro
+$ mysql -u root -t locadora -e "SELECT id, nome, email, perfil, senha_hash FROM usuarios;"
++----+---------------+--------------------------+-----------+--------------------------------------------------------------+
+| id | nome          | email                    | perfil    | senha_hash                                                   |
++----+---------------+--------------------------+-----------+--------------------------------------------------------------+
+|  1 | Administrador | admin@locadora.local     | admin     | $2y$12$nz.yYPpq79b3Le1fojc9I.CyewiJT7/DbgVwrXhTxudMU6l6ZS.zG |
+|  2 | Atendente     | atendente@locadora.local | atendente | $2y$12$6wJbrzEbgOfFLDCWHTOHfOwM/cVDCNpc0zVvFhN70P1pxLHaG3H0W |
+|  3 | Pedro Madruga | pedro@locadora.local     | atendente | $2y$12$WGnaZpTN5PfcF1r3p2wc.u6xecarsZk9gJHV7vWaJskGT1tr10hO. |
++----+---------------+--------------------------+-----------+--------------------------------------------------------------+

@@ -1,0 +1,21 @@
+$ php testes/teste_sql_injection.php
+Entrada digitada na busca: ' OR '1'='1
+
+(1) CONSULTA CONCATENADA
+   SQL que chega ao MySQL:
+   SELECT id, placa, modelo, deleted_at FROM Veiculo WHERE modelo LIKE '%' OR '1'='1%' AND deleted_at IS NULL
+   Linhas retornadas: 7
+   id=1   placa=ABC1234  modelo=Compass                      deleted_at=NULL
+   id=2   placa=XYZ9876  modelo=Argo                         deleted_at=NULL
+   id=3   placa=BRA2E19  modelo=Argo                         deleted_at=NULL
+   id=4   placa=QWE4R56  modelo=Argo                         deleted_at=NULL
+   id=5   placa=RTY7U89  modelo=Argo                         deleted_at=NULL
+   id=6   placa=PQR3S45  modelo=Onix Plus                    deleted_at=2026-11-04 10:43:14
+   id=8   placa=XSS0A01  modelo=<script>alert(1)</script>    deleted_at=NULL
+
+(2) PREPARED STATEMENT
+   SQL enviado ao MySQL (o valor vai separado):
+   SELECT id, placa, modelo, deleted_at FROM Veiculo WHERE modelo LIKE :modelo AND deleted_at IS NULL
+   :modelo = '%' OR '1'='1%'
+   Linhas retornadas: 0
+   (nenhuma linha retornada)

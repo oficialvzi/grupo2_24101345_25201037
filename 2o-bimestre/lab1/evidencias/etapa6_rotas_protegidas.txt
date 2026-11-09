@@ -1,0 +1,6 @@
+# Sem login, toda rota interna redireciona para /login
+$ curl -sI localhost:8000/carros        -> HTTP/1.1 302 Found Location: /login 
+$ curl -sI localhost:8000/carros/novo   -> HTTP/1.1 302 Found Location: /login 
+$ curl -sI localhost:8000/clientes      -> HTTP/1.1 302 Found Location: /login 
+$ curl -sI localhost:8000/locacoes      -> HTTP/1.1 302 Found Location: /login 
+$ curl -sI localhost:8000/usuarios      -> HTTP/1.1 302 Found Location: /login 
