@@ -1,0 +1,58 @@
+:root {
+    --fundo: #f5f6f8; --superficie: #fff; --texto: #1f2430; --suave: #6b7280;
+    --borda: #e3e6eb; --primaria: #1d4ed8; --primaria-escura: #1e40af;
+    --sucesso-bg: #e7f6ec; --sucesso: #166534; --erro-bg: #fdecec; --erro: #b91c1c;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; background: var(--fundo); color: var(--texto); }
+.container { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+.topo { background: #111827; color: #fff; }
+.topo__conteudo { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+.marca { color: #fff; font-weight: 700; text-decoration: none; }
+.topo nav a { color: #d1d5db; text-decoration: none; margin-left: 20px; }
+.topo nav a:hover { color: #fff; }
+main.container { padding-top: 24px; padding-bottom: 32px; }
+h1 { font-size: 22px; margin: 0 0 16px; }
+.cabecalho { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+a { color: var(--primaria); }
+.botao { display: inline-block; background: var(--primaria); color: #fff; border: 0; border-radius: 6px; padding: 8px 14px; font: inherit; cursor: pointer; text-decoration: none; }
+.botao:hover { background: var(--primaria-escura); }
+.botao--secundario { background: #374151; }
+.busca { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; }
+.busca input { flex: 1; max-width: 360px; }
+input, select { font: inherit; padding: 8px 10px; border: 1px solid var(--borda); border-radius: 6px; background: #fff; width: 100%; }
+.tabela { width: 100%; border-collapse: collapse; background: var(--superficie); border: 1px solid var(--borda); border-radius: 8px; overflow: hidden; }
+.tabela th, .tabela td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--borda); }
+.tabela th { background: #f9fafb; font-size: 13px; color: var(--suave); text-transform: uppercase; letter-spacing: .03em; }
+.tabela tr:last-child td { border-bottom: 0; }
+.acoes { white-space: nowrap; text-align: right; }
+.acoes form { display: inline; margin-left: 12px; }
+.link-perigo { background: none; border: 0; color: var(--erro); cursor: pointer; font: inherit; padding: 0; text-decoration: underline; }
+.vazio { text-align: center; color: var(--suave); }
+.selo { font-size: 12px; padding: 2px 8px; border-radius: 999px; }
+.selo--disponivel { background: var(--sucesso-bg); color: var(--sucesso); }
+.selo--locado { background: #fff4e5; color: #9a3412; }
+.alerta { padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; }
+.alerta ul { margin: 6px 0 0; padding-left: 20px; }
+.alerta--sucesso { background: var(--sucesso-bg); color: var(--sucesso); }
+.alerta--erro { background: var(--erro-bg); color: var(--erro); }
+.info { color: var(--suave); }
+.formulario { background: var(--superficie); border: 1px solid var(--borda); border-radius: 8px; padding: 20px; max-width: 480px; display: grid; gap: 14px; }
+.formulario label { display: grid; gap: 4px; font-weight: 600; font-size: 14px; }
+.formulario__acoes { display: flex; gap: 14px; align-items: center; }
+.rodape { color: var(--suave); font-size: 12px; padding-bottom: 24px; }
+code { font-size: 13px; }
+@media (max-width: 640px) { .tabela { font-size: 13px; } .tabela th, .tabela td { padding: 8px 6px; } }
+.topo nav { display: flex; align-items: center; }
+.usuario { color: #9ca3af; font-size: 13px; margin-left: 24px; }
+.sair { margin-left: 12px; }
+.sair button { background: none; border: 1px solid #4b5563; color: #d1d5db; border-radius: 6px; padding: 4px 10px; font: inherit; font-size: 13px; cursor: pointer; }
+.login { max-width: 420px; margin: 40px auto 0; }
+.devolucao { display: flex; gap: 6px; align-items: center; }
+.devolucao input { width: auto; padding: 4px 6px; }
+.devolucao .botao { padding: 4px 10px; font-size: 13px; }
+.selo--ativa { background: #e0ecff; color: #1e40af; }
+.selo--finalizada { background: #eef0f3; color: #4b5563; }
+.selo--admin { background: #f3e8ff; color: #6b21a8; }
+.selo--atendente { background: #eef0f3; color: #374151; }
+small { color: var(--suave); }
